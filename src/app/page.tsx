@@ -1,15 +1,18 @@
+import Footer from "@/components/(landing)/Footer";
+import Hero from "@/components/(landing)/Hero";
+import Information from "@/components/(landing)/Information";
+import Narbar from "@/components/(landing)/Narbar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import Image from "next/image";
-import Link from "next/link";
+
 
 export default function LandingPage() {
   return (
     <div className="flex-row">
-      <h2>LandingPage</h2>
-      <Link href="/signin">
-        <Button>Login to system</Button>
-      </Link>
+      <Narbar />
+      <Hero />
+      <Information />
+      <Footer />
     </div>
   );
 }
