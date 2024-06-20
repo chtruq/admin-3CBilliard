@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 
 export default function LandingPage() {
   return (
-    <div className="flex-row">
+    <div className="">
       <Narbar />
       <Hero />
       <Information />
