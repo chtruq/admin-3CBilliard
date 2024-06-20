@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 
 const Narbar = () => {
     return (
-        <div className="container mx-auto  py-4 bg-[#E1DADA]">
+        <div className="px-6 py-4 bg-[#E1DADA]">
             <div className="flex justify-between items-center">
                 <img src="/assets/image/logo.svg" alt="logo" className="w-32 md:w-23" />
                 <Link href="/signin" className='invisible md:visible'>
