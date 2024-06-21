@@ -1,9 +1,18 @@
-import React from 'react'
+import UserPagination from "@/components/users/UserPagination";
+import { getUsers } from "@/lib/action/users";
+import React, { Suspense } from "react";
 
-const page = () => {
+const UserPage = async ({ searchParams }: { searchParams: any }) => {
+  const page = searchParams.page ?? 1;
+  const per_page = searchParams.per_page ?? 10;
+  const data = await getUsers(page, per_page);
   return (
-    <div>user</div>
-  )
-}
+    <>
+      <Suspense fallback={<div>Loading...</div>}>
+        <UserPagination data={data} />
+      </Suspense>
+    </>
+  );
+};
 
-export default page
+export default UserPage;
