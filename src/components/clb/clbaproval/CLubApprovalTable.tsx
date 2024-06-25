@@ -1,5 +1,7 @@
 "use client";
 
+import { acceptClub, rejectClub } from "@/app/actions/club";
+import { Spinner } from "@/components/expansions/spinner";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -29,10 +31,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useToast } from "@/components/ui/use-toast";
-import { activateClub, rejectClub } from "@/lib/action/club";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { usePathname, useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 
 function CLubApprovalTable({
   data,
@@ -44,11 +45,15 @@ function CLubApprovalTable({
   const { toast } = useToast();
   const router = useRouter();
   const pathname = usePathname();
+  const [isLoading, setIsLoading] = useState(false);
+  const [idCondition, setId] = useState(0);
 
   const handleApprove = async (id: number) => {
     console.log(id);
     try {
-      const res = await activateClub(id);
+      setId(id);
+      setIsLoading(true);
+      const res = await acceptClub(id);
       console.log(res);
       toast({
         variant: "default",
@@ -63,20 +68,25 @@ function CLubApprovalTable({
         title: "Lỗi",
         description: "Đã có lỗi xảy ra",
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleReject = async (id: number, note: string) => {
     console.log(id);
     try {
+      setId(id);
+      setIsLoading(true);
       const res = await rejectClub(id, note);
       console.log(res);
+
+      router.push(pathname);
       toast({
         variant: "default",
         title: "Đã từ chối",
         description: "CLB đã bị từ chối",
       });
-      router.push(pathname);
     } catch (error) {
       console.log(error);
       toast({
@@ -84,7 +94,22 @@ function CLubApprovalTable({
         title: "Lỗi",
         description: "Đã có lỗi xảy ra",
       });
+    } finally {
+      setIsLoading(false);
     }
+  };
+
+  const handleLoading = (id: number) => {
+    setIsLoading(true);
+    setId(id);
+    toast({
+      variant: "destructive",
+      title: "Lỗi",
+      description: "Đã có lỗi xảy ra",
+    });
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
   };
 
   const [open, setOpen] = React.useState(false);
@@ -94,6 +119,7 @@ function CLubApprovalTable({
   return (
     <>
       {loading && <div>Đang tải...</div>}
+
       {!loading && data.length != 0 && (
         <Table className="bg-white border rounded-lg w-[100%]">
           <TableHeader>
@@ -160,7 +186,13 @@ function CLubApprovalTable({
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button variant="outline">
-                          <DotsHorizontalIcon className="" />
+                          {isLoading && idCondition == item.id ? (
+                            <div className="">
+                              <Spinner size="small" />
+                            </div>
+                          ) : (
+                            <DotsHorizontalIcon className="" />
+                          )}
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent>
@@ -168,6 +200,7 @@ function CLubApprovalTable({
                           <DropdownMenuItem
                             onClick={() => {
                               handleApprove(item.id);
+                              // handleLoading(item.id);
                             }}
                             className="items-center text-center"
                           >
@@ -177,6 +210,7 @@ function CLubApprovalTable({
                             onClick={() => {
                               setOpen(true);
                               setDeleteId(item.id);
+                              // handleLoading(item.id);
                             }}
                             className="items-center text-center"
                           >

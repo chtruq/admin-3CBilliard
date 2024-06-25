@@ -24,27 +24,18 @@ const deleteClub = async (id: number) => {
     }
 }
 
-const activateClub = async (id: number) => {
-    try {
-        const response = await api.put(`/bidaclubs/activate/${id}`, {
-            note: "Câu lạc bộ được chấp nhận"
-        });
-        return response.data;
-    } catch (error) {
-        console.error(error);
-    }
-}
-
-const rejectClub = async (id: number, note: string) => {
-    try {
-        const response = await api.put(`/bidaclubs/reject/${id}`,
-             note
-            );
-        return response.data;
-    } catch (error) {
-        console.error(error);
-    }
-}
+// const activateClub = async (id: number) => {
+//     try {
+//         const response = await api.put(`/bidaclubs/activate/${id}`, {
+//             note: "Câu lạc bộ được chấp nhận"
+//         });
+//         return response.data;
+//     } catch (error) {
+//         console.error(error);
+//     }
+// }
 
 
-export { getClubs, deleteClub, activateClub, rejectClub };
+
+
+export { getClubs, deleteClub };

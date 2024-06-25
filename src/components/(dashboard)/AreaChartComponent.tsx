@@ -1,35 +1,62 @@
-// AreaChartComponent.tsx
 "use client";
 
-import React from "react";
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { getStatisticData } from "@/lib/action/statistic";
+import React, { useEffect, useState } from "react";
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 
-type ChartData = {
-  name: string;
-  uv: number;
-};
+const AreaChartComponent = ({
+  chartType,
+  sortBy,
+}: {
+  chartType: string;
+  sortBy: number;
+}) => {
+  // call API here
 
-const AreaChartComponent = ({ chartData }: { chartData: ChartData[] }) => {
+  const [chartData, setChartData] = useState([]);
+
+  const getChartData = async () => {
+    try {
+      const response = await getStatisticData(chartType);
+      setChartData(response);
+      return response;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getChartData();
+  }, []);
+
   return (
     <ResponsiveContainer width="100%" height="100%">
-        <AreaChart
-          width={500}
-          height={400}
-          data={chartData}
-          margin={{
-            top: 10,
-            right: 30,
-            left: 0,
-            bottom: 0,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Area type="monotone" dataKey="uv" stroke="#8884d8" fill="#8884d8" />
-        </AreaChart>
-      </ResponsiveContainer>
+      <AreaChart
+        width={500}
+        height={400}
+        // data={chartData}
+        margin={{
+          top: 10,
+          right: 30,
+          left: 0,
+          bottom: 0,
+        }}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="name" />
+        <YAxis />
+        <Tooltip />
+        <Area type="monotone" dataKey="uv" stroke="#8884d8" fill="#8884d8" />
+      </AreaChart>
+    </ResponsiveContainer>
   );
 };
 

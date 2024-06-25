@@ -94,7 +94,7 @@ function CLubTable({ data, loading }: { data: any[]; loading: boolean }) {
                       </DropdownMenuTrigger>
                       <DropdownMenuContent>
                         <DropdownMenuGroup>
-                          <DropdownMenuItem>Xoá</DropdownMenuItem>
+                          <DropdownMenuItem>Chặn</DropdownMenuItem>
                         </DropdownMenuGroup>
                       </DropdownMenuContent>
                     </DropdownMenu>
