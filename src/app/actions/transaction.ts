@@ -1,9 +1,4 @@
-import api from "./api"
-
-const QUERY_ORDERS = {
-    GET_ORDERS: "/bills/search "
-}
-
+import api from "./api";
 
 export async function getBills(page: number, perpage: number) {
     try{

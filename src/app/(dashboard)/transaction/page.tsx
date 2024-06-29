@@ -1,3 +1,4 @@
+import { getBills } from "@/app/actions/transaction";
 import PaginationComponent from "@/components/transaction/PaginationComponent";
 import TransactionTable from "@/components/transaction/TransactionTable";
 import { Button } from "@/components/ui/button";
@@ -19,7 +20,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { getBills } from "@/lib/action/transaction";
 import {
   DropdownMenu,
   DropdownMenuContent,

@@ -1,7 +1,6 @@
 "use client";
 
 import { acceptClub, rejectClub } from "@/app/actions/club";
-import { Spinner } from "@/components/expansions/spinner";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -188,7 +187,7 @@ function CLubApprovalTable({
                         <Button variant="outline">
                           {isLoading && idCondition == item.id ? (
                             <div className="">
-                              <Spinner size="small" />
+                              {/* <Spinner size="small" /> */}
                             </div>
                           ) : (
                             <DotsHorizontalIcon className="" />

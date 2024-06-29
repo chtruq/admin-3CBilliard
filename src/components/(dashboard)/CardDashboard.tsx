@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader } from "../ui/card";
 import {
   ArrowDownUp,
@@ -10,6 +10,16 @@ import {
   User,
 } from "lucide-react";
 import AreaChartComponent from "./AreaChartComponent";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "../ui/dialog";
+import { Button } from "../ui/button";
+import dynamic from "next/dynamic";
+import { getYearlyStatistics } from "@/app/actions/statistics";
 
 interface Card {
   id: number;
@@ -23,17 +33,28 @@ interface CardProps {
 
 const CardDashboard: React.FC<CardProps> = ({ cards }) => {
   const [activeCard, setActiveCard] = useState<number | null>(1);
-
+  const [chartData, setChartData] = useState<any[]>([]);
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const [activeNavIndex, setActiveNavIndex] = useState(0);
   const [chartTitle, setChartTitle] = useState("Doanh thu");
+  const [openDialog, setOpenDialog] = useState(false);
+  const [activeChartType, setActiveChartType] = useState("year");
+  const [startDate, setStartDate] = React.useState(
+    new Date(new Date().setFullYear(new Date().getFullYear() - 1))
+  );
+  const [endDate, setEndDate] = React.useState(new Date());
   const updateChartTitle = (title: string) => {
     setChartTitle(title);
+  };
+
+  const handleDialogClose = () => {
+    setOpenDialog(false);
   };
 
   const handleCardClick = (id: number) => {
     setActiveCard(id);
   };
+
   const cardStyles = {
     default: {
       bgColor: "bg-white",
@@ -73,27 +94,26 @@ const CardDashboard: React.FC<CardProps> = ({ cards }) => {
     { title: "1 năm" },
     { title: "1 tháng" },
     { title: "7 ngày" },
+    // { title: "Chọn ngày" },
   ];
-  const chartDataOptions: { [key: string]: any[] } = {
-    "7 ngày": [
-      { name: "12", uv: "200" },
-      { name: "13", uv: "300" },
-      { name: "14", uv: "400" },
-      { name: "15", uv: "500" },
-      { name: "16", uv: "600" },
-      { name: "17", uv: "700" },
-      { name: "18", uv: "800" },
-    ],
-    "1 tháng": [
-      /* Dữ liệu cho 1 tháng */
-    ],
-    "1 năm": [
-      /* Dữ liệu cho 1 năm */
-    ],
-  };
-  const currentChartData = chartDataOptions[filterDays[activeItemIndex].title];
-
-  console.log(currentChartData);
+  // const chartDataOptions: { [key: string]: any[] } = {
+  //   "7 ngày": [
+  //     { name: "12", uv: "200" },
+  //     { name: "13", uv: "300" },
+  //     { name: "14", uv: "400" },
+  //     { name: "15", uv: "500" },
+  //     { name: "16", uv: "600" },
+  //     { name: "17", uv: "700" },
+  //     { name: "18", uv: "800" },
+  //   ],
+  //   "1 tháng": [
+  //     /* Dữ liệu cho 1 tháng */
+  //   ],
+  //   "1 năm": [
+  //     /* Dữ liệu cho 1 năm */
+  //   ],
+  // };
+  // const currentChartData = chartDataOptions[filterDays[activeItemIndex].title];
 
   return (
     <>
@@ -103,32 +123,32 @@ const CardDashboard: React.FC<CardProps> = ({ cards }) => {
           <Card
             key={card.id}
             className={` border rounded-2xl cursor-pointer ${
-              activeCard === card.id ? "bg-red-400" : "bg-white"
+              activeCard === card?.id ? "bg-red-400" : "bg-white"
             }`}
             onClick={() => {
-              handleCardClick(card.id);
-              updateChartTitle(card.title);
+              handleCardClick(card?.id);
+              updateChartTitle(card?.title);
             }}
           >
             <CardHeader>
               <div className="flex justify-between">
                 <p
                   className={`text-xl font-medium ${
-                    activeCard === card.id ? "text-white" : "text-black"
+                    activeCard === card?.id ? "text-white" : "text-black"
                   } `}
                 >
-                  {card.title}
+                  {card?.title}
                 </p>
-                {renderIcon(card.id, isActive)}
+                {renderIcon(card?.id, isActive)}
               </div>
             </CardHeader>
             <CardContent>
               <p
                 className={`text-2xl pt-2 font-semibold ${
-                  activeCard === card.id ? "text-white" : "text-black"
+                  activeCard === card?.id ? "text-white" : "text-black"
                 } `}
               >
-                {card.amount}
+                {card?.amount}
               </p>
             </CardContent>
           </Card>
@@ -137,7 +157,7 @@ const CardDashboard: React.FC<CardProps> = ({ cards }) => {
 
       {activeCard && (
         <>
-          <div className="flex justify-around m-4 w-[80vw]">
+          <div className="flex justify-around w-[80vw]">
             <div className="p-4 flex flex-col bg-slate-200 min-w-full border rounded-xl">
               <div className="flex justify-between items-center mb-4">
                 <p className="text-xl text-black font-semibold">
@@ -156,7 +176,30 @@ const CardDashboard: React.FC<CardProps> = ({ cards }) => {
                         className={style}
                         onClick={() => {
                           setActiveItemIndex(index);
-                          console.log("index", index);
+                          if (index === 0) {
+                            setActiveChartType("year");
+                            const endDate = new Date();
+                            const startDate = new Date();
+                            startDate.setFullYear(startDate.getFullYear() - 1);
+                            setStartDate(startDate);
+                            setEndDate(endDate);
+                          }
+                          if (index === 1) {
+                            setActiveChartType("month");
+                            const endDate = new Date();
+                            const startDate = new Date();
+                            startDate.setMonth(startDate.getMonth() - 1);
+                            setStartDate(startDate);
+                            setEndDate(endDate);
+                          }
+                          if (index === 2) {
+                            setActiveChartType("7day");
+                            const endDate = new Date();
+                            const startDate = new Date();
+                            startDate.setDate(startDate.getDate() - 7);
+                            setStartDate(startDate);
+                            setEndDate(endDate);
+                          }
                         }}
                       >
                         {filterDay.title}
@@ -165,17 +208,40 @@ const CardDashboard: React.FC<CardProps> = ({ cards }) => {
                   })}
                 </div>
               </div>
-              <div className="flex flex-col items-center justify-center p-4 border border-slate-500 bg-white rounded-xl h-[400px]">
+              <div className="flex flex-col items-center justify-center border border-slate-500 bg-white rounded-xl h-[400px]">
                 <p className="text-xl text-black font-semibold">{chartTitle}</p>
                 <AreaChartComponent
                   chartType={chartTitle}
                   sortBy={activeItemIndex}
+                  startDate={startDate}
+                  endDate={endDate}
+                  type={activeChartType}
                 />
               </div>
             </div>
           </div>
         </>
       )}
+
+      {/* <Dialog open={openDialog} onOpenChange={handleDialogClose}>
+        <DialogContent className="w-[80%]">
+          <DialogHeader>
+            <DialogTitle>Chọn ngày</DialogTitle>
+          </DialogHeader>
+          <div className="flex flex-row"></div>
+
+          <DialogFooter>
+            <Button
+              onClick={() => {
+                setOpenDialog(false);
+                console.log("start date", startDate);
+              }}
+            >
+              Xác nhận
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog> */}
 
       {/* <div className="flex justify-around m-4">
         <div className="p-4 flex flex-col bg-slate-200 min-w-full border rounded-xl">

@@ -1,5 +1,5 @@
+import { getUsers } from "@/app/actions/user";
 import UserPagination from "@/components/users/UserPagination";
-import { getUsers } from "@/lib/action/users";
 import React, { Suspense } from "react";
 
 const UserPage = async ({ searchParams }: { searchParams: any }) => {

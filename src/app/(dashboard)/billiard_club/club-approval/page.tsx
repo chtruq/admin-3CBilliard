@@ -1,5 +1,5 @@
+import { getClubs } from "@/app/actions/club";
 import ClubApprovalPagination from "@/components/clb/clbaproval/ClubApproval";
-import { getClubs } from "@/lib/action/club";
 import React, { Suspense } from "react";
 
 const page = async ({ searchParams }: { searchParams: any }) => {

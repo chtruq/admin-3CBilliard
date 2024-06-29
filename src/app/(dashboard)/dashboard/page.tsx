@@ -10,13 +10,11 @@ import {
 } from "lucide-react";
 // import { fetchStatisticsSummary } from "@/components/(dashboard)/apiService";
 // import { get } from "http";
-import { getStatisticSummary } from "@/lib/action/statistic";
-import api from "@/lib/action/api";
 import CardDashboard from "@/components/(dashboard)/CardDashboard";
+import { getStatisticsSummary } from "@/app/actions/statistics";
 
 const DashBoard = async () => {
-  const statistics = await getStatisticSummary();
-  console.log(statistics);
+  const statistics = await getStatisticsSummary();
   // const [statistics, setStatistics] = useState({
   //   totalActiveClubs: 0,
   //   totalActiveUsers: 0,
@@ -70,9 +68,9 @@ const DashBoard = async () => {
     },
     {
       id: 2,
-      title: "Hoa hồng (3%)",
+      title: "Hoa hồng (5%)",
       amount: `${(
-        parseFloat(String(statistics?.totalRevenue).replace(/\D/g, "")) * 0.03
+        parseFloat(String(statistics?.totalRevenue).replace(/\D/g, "")) * 0.05
       ).toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
     },
     {
