@@ -45,7 +45,7 @@ const AreaChartComponent = ({
     return `${month}/${year}`;
   };
 
-  const getChartYearlyData = async () => {
+  const getChartYearlyData = async (startDate: Date, endDate: Date) => {
     try {
       setIsLoading(true);
       const data = await getMonthlyStatistics(startDate, endDate);
@@ -71,7 +71,7 @@ const AreaChartComponent = ({
     }
   };
 
-  const getChartDailyData = async () => {
+  const getChartDailyData = async (startDate: Date, endDate: Date) => {
     try {
       setIsLoading(true);
       const data = await getDailyStatistics(startDate, endDate);
@@ -99,21 +99,16 @@ const AreaChartComponent = ({
   };
 
   useEffect(() => {
-    getChartYearlyData();
+    getChartYearlyData(startDate, endDate);
   }, []);
 
   useEffect(() => {
-    console.log("chartData", chartData);
-    console.log("hoahong", hoahong);
-  }, [chartData]);
-
-  useEffect(() => {
     if (type === "year") {
-      getChartYearlyData();
+      getChartYearlyData(startDate, endDate);
     } else if (type === "month") {
-      getChartDailyData();
+      getChartDailyData(startDate, endDate);
     } else if (type === "7day") {
-      getChartDailyData();
+      getChartDailyData(startDate, endDate);
     }
   }, [type]);
 
