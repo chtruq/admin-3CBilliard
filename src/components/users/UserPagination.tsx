@@ -17,6 +17,7 @@ function UserPagination({ data }: { data: any }) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
+
   const createQueryString = useCallback(
     (page: number, per_page: number) => {
       const params = new URLSearchParams(searchParams.toString());
@@ -27,7 +28,7 @@ function UserPagination({ data }: { data: any }) {
     [searchParams]
   );
 
-  const page = searchParams.get("page");
+  const page = searchParams.get("page") || 1;
   useEffect(() => {
     console.log(page);
   }, [page]);
@@ -36,7 +37,6 @@ function UserPagination({ data }: { data: any }) {
 
   const [currentPage, setCurrentPage] = useState(page ?? 1);
   const handlePageChange = (value: any) => {
-    console.log(value);
     setCurrentPage(value);
     const queryString = createQueryString(value, per_page);
     console.log(queryString);
@@ -54,6 +54,17 @@ function UserPagination({ data }: { data: any }) {
     console.log(value);
     return value;
   };
+
+  const handleSearchChange = (value: any) => {
+    const queryString = createQueryString(Number(currentPage), per_page);
+    console.log("queryString", queryString);
+    router.push(pathname + "?" + queryString);
+    setLoading(true);
+  };
+
+  useEffect(() => {
+    handleSearchChange(searchParams.get("search"));
+  }, [searchParams.get("search")]);
 
   const items = data;
   const totalItems = items?.length;

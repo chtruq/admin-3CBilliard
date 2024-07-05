@@ -60,7 +60,12 @@ function UserTable({ data, loading }: { data: any[]; loading: boolean }) {
                   <TableCell>
                     {item.phone && item.phone !== "" ? item.phone : "N/A"}
                   </TableCell>
-                  <TableCell>{item.roleId}</TableCell>
+                  <TableCell>
+                    {(item.roleId == 1 && "Admin") ||
+                      (item.roleId == 2 && "Nhân viên") ||
+                      (item.roleId == 3 && "Người dùng") ||
+                      (item.roleId == 4 && "Chủ câu lạc bộ")}
+                  </TableCell>
                   <TableCell>
                     {item.address && item.address !== "" ? item.address : "N/A"}
                   </TableCell>

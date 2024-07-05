@@ -129,37 +129,6 @@ const DashBoard = async () => {
           <CardDashboard cards={cardsData} />
         </div>
       </section>
-
-      {/* chart */}
-      {/* <div className="flex justify-around m-4">
-        <div className="p-4 flex flex-col bg-slate-200 min-w-full border rounded-xl">
-          <div className="flex justify-between items-center mb-4">
-            <p className="text-xl text-black font-semibold">Biểu đồ thống kê</p>
-            <div className="flex items-center space-x-3">
-              <p className="text-black font-semibold">Lọc theo:</p>
-              {filterDays.map((filterDay, index) => {
-                const isActive = index === activeItemIndex;
-                const style = isActive
-                  ? "px-4 py-2 bg-red-400 border-2 border-gray-300 rounded-lg text-white"
-                  : "px-4 py-2 bg-slate-300 broder rounded-lg";
-                return (
-                  <button
-                    key={index}
-                    className={style}
-                    onClick={() => setActiveItemIndex(index)}
-                  >
-                    {filterDay.title}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-          <div className="flex flex-col items-center justify-center p-4 border border-slate-500 bg-white rounded-xl h-[400px]">
-            <p className="text-xl text-black font-semibold">{chartTitle}</p>
-            <AreaChartComponent chartData={currentChartData} />
-          </div>
-        </div>
-      </div> */}
     </>
   );
 };

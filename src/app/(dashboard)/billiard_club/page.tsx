@@ -1,3 +1,4 @@
+"use server";
 import { getClubs } from "@/app/actions/club";
 import ClubPagination from "@/components/clb/ClubPagination";
 import React, { Suspense } from "react";

@@ -1,6 +1,6 @@
 "use client";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { use, useCallback, useEffect, useState } from "react";
 import {
   Pagination,
   PaginationContent,
@@ -22,6 +22,7 @@ function ClubPagination({ data }: { data: any }) {
       const params = new URLSearchParams(searchParams.toString());
       params.set("page", String(page));
       params.set("per_page", String(per_page));
+      params.set("search", searchParams.get("search") ?? "");
       return params.toString();
     },
     [searchParams]
@@ -35,6 +36,19 @@ function ClubPagination({ data }: { data: any }) {
   const per_page = 10;
 
   const [currentPage, setCurrentPage] = useState(page ?? 1);
+
+  const handleSearchChange = (value: any) => {
+    console.log(value);
+    const queryString = createQueryString(1, per_page);
+    console.log(queryString);
+    router.push(pathname + "?" + queryString);
+    setLoading(true);
+  };
+
+  useEffect(() => {
+    handleSearchChange(searchParams.get("search"));
+  }, [searchParams.get("search")]);
+
   const handlePageChange = (value: any) => {
     console.log(value);
     setCurrentPage(value);
@@ -57,7 +71,6 @@ function ClubPagination({ data }: { data: any }) {
 
   const items = data;
   const totalItems = items?.length;
-  console.log(totalItems);
 
   return (
     <>

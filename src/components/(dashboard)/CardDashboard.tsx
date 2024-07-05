@@ -96,24 +96,6 @@ const CardDashboard: React.FC<CardProps> = ({ cards }) => {
     { title: "7 ngày" },
     // { title: "Chọn ngày" },
   ];
-  // const chartDataOptions: { [key: string]: any[] } = {
-  //   "7 ngày": [
-  //     { name: "12", uv: "200" },
-  //     { name: "13", uv: "300" },
-  //     { name: "14", uv: "400" },
-  //     { name: "15", uv: "500" },
-  //     { name: "16", uv: "600" },
-  //     { name: "17", uv: "700" },
-  //     { name: "18", uv: "800" },
-  //   ],
-  //   "1 tháng": [
-  //     /* Dữ liệu cho 1 tháng */
-  //   ],
-  //   "1 năm": [
-  //     /* Dữ liệu cho 1 năm */
-  //   ],
-  // };
-  // const currentChartData = chartDataOptions[filterDays[activeItemIndex].title];
 
   return (
     <>
