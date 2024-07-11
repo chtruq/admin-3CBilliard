@@ -25,7 +25,7 @@ function Hero() {
 
               <div className='mx-auto flex flex-col justify-center items-center'>
                 <div className='p-5 md:pt-40'>
-                  <Button className='px-8 py-8 border-black rounded-md bg-gray-200 text-black hover:bg-gray-200'>Tải ứng dựng về máy của bạn</Button>
+                  <Button className='px-8 py-8 border-black rounded-md bg-gray-200 text-black hover:bg-gray-200'>Tải ứng dụng về máy của bạn</Button>
                 </div>
                 <p className=''>Ứng dụng hỗ trợ cho Android!</p>
               </div>
