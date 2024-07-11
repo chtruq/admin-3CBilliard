@@ -12,7 +12,7 @@ const Information = () => {
                     <p className='text-xl font-light'>Cung cấp các đánh giá thực tế từ khách hàng giúp niềm tin và uy tín cho 3C billiard.</p>
                 </div>
                 <div className='flex flex-col text-center items-center'>
-                    <img className='w-32 h-32 md:w-40 md:h-40' src="/assets/Image/time-icon.png" alt="" />
+                    <img className='w-32 h-32 md:w-40 md:h-40' src="/assets/image/time.png" alt="" />
                     <p className='text-xl font-light'>Tối ưu quy trình đặt bàn và thanh toán giúp cho trải nghiệm người dùng trên thuận lợi và nhanh chóng.</p>
                 </div>
                 <div className='flex flex-col text-center items-center'>
