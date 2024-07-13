@@ -34,7 +34,7 @@ function Hero() {
               <div className="mx-auto flex flex-col justify-center items-center">
                 <a
                   href={
-                    "https://drive.usercontent.google.com/download?id=13uIPvjIJUEnAQPb4Ththjgmhy5mMi4XC&export=download&authuser=4&confirm=t&uuid=15057d1c-47f4-41b4-85cb-d93781231649&at=APZUnTWluyDhQ5u1pu2CNEPVZ9sF:1720761619565"
+                    "https://drive.usercontent.google.com/download?id=1zoMdhMvMGL6iOUwIZgezzxEww8ERJb0g&export=download&authuser=4&confirm=t&uuid=e3574b8d-360f-40db-9c29-109e8f1532b5&at=APZUnTUTB8aUcRtCfmNDYb0b8a13:1720833387948"
                   }
                   className="p-5 md:pt-40"
                 >
