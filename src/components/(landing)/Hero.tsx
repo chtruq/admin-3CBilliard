@@ -34,7 +34,7 @@ function Hero() {
               <div className="mx-auto flex flex-col justify-center items-center">
                 <a
                   href={
-                    "https://drive.usercontent.google.com/download?id=1iPEEhkPTRb0x98_ZiVOErDzrSigQqRDX&export=download&authuser=4"
+                    "https://drive.usercontent.google.com/uc?id=1kV6Ny7_DE45byIZAWFUuIzePZgJ_FtTE&authuser=4&export=download"
                   }
                   className="p-5 md:pt-40"
                 >
