@@ -32,18 +32,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const token = localStorage.getItem("token");
     if (token) {
       const decodedToken = JSON.parse(atob(token.split(".")[1]));
-      setUser({
-        email: decodedToken.email,
-        name: decodedToken.name,
-        Phone: decodedToken.Phone,
-        role: decodedToken.role,
-        exp: decodedToken.exp,
-        userid: decodedToken.userid,
-      });
+      console.log(decodedToken);
 
+      setUser({
+        data: decodedToken,
+      });
       setIsLogged(true);
     }
-
     setLoading(false);
   }, []);
 

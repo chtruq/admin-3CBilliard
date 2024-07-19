@@ -13,11 +13,11 @@ function AuthLayout({ children }: { children: React.ReactNode }) {
   // }
 
   const router = useRouter();
-  const { isLogged, loading } = useAuth();
+  const { isLogged, loading, user } = useAuth();
+  console.log(isLogged, loading, user);
   useEffect(() => {
-    if (!loading && isLogged) {
+    if (!loading && isLogged && user?.data.role === "Admin") {
       return router.push("/dashboard");
-      // return revalidatePath("/dashboard");
     }
   }, [isLogged, loading]);
 

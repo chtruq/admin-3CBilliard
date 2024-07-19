@@ -15,36 +15,8 @@ import { getStatisticsSummary } from "@/app/actions/statistics";
 
 const DashBoard = async () => {
   const statistics = await getStatisticsSummary();
-  // const [statistics, setStatistics] = useState({
-  //   totalActiveClubs: 0,
-  //   totalActiveUsers: 0,
-  //   totalRevenue: 0,
-  //   totalActiveTransactions: 0,
-  // });
 
-  // useEffect(() => {
-  //   // Gọi hàm fetchStatisticsSummary và cập nhật state
-  //   fetchStatisticsSummary()
-  //     .then(data => {
-  //       setStatistics(data);
-  //     })
-  //     .catch(error => console.error("Error fetching data: ", error));
-  // }, []);
-
-  // useEffect(() => {
-  //   fetchStatisticsSummary();
-  // }, []);
-
-  // useEffect(() => {
-  //   console.log(statistics);
-  // }, [statistics]);
-
-  // const [activeItemIndex, setActiveItemIndex] = useState(0);
-  // const [activeNavIndex, setActiveNavIndex] = useState(0);
-  // const [chartTitle, setChartTitle] = useState("Doanh thu");
-  // const updateChartTitle = (title: string) => {
-  //   setChartTitle(title);
-  // };
+  console.log(statistics);
 
   const cardStyles = {
     default: {

@@ -17,7 +17,7 @@ import { revalidatePath } from "next/cache";
 import { usePathname, useRouter } from "next/navigation";
 
 function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const { isLogged, loading, setIsLogged } = useAuth();
+  const { isLogged, loading, setIsLogged, user } = useAuth();
   const router = useRouter();
 
   const [activeNavIndex, setActiveNavIndex] = useState(0);
@@ -37,7 +37,7 @@ function DashboardLayout({ children }: { children: React.ReactNode }) {
   }, []);
 
   useEffect(() => {
-    if (!isLogged && !loading) {
+    if (!isLogged && !loading && user?.data.role !== "Admin") {
       // revalidatePath("/signin");
       return router.push("/signin");
     }

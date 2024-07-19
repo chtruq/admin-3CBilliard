@@ -64,6 +64,7 @@ const AreaChartComponent = ({
           date: formatMonthYear(item.month, item.year),
         }))
       );
+      console.log("data", chartData);
     } catch (error) {
       console.log(error);
     } finally {

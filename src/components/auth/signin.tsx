@@ -11,6 +11,7 @@ import { toast } from "../ui/use-toast";
 import { signInTo3C } from "@/app/actions/user";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/authContext";
+import { Spinner } from "../ui/spinner";
 
 function SignInComponent() {
   const [email, setEmail] = useState("");
@@ -22,18 +23,24 @@ function SignInComponent() {
 
   const onSignIn = async () => {
     console.log(email, password);
-
+    setLoading(true);
     try {
       const response = await signInTo3C(email, password);
-      console.log(response);
-      if (response) {
+      const decodedToken = JSON.parse(atob(response.token.split(".")[1]));
+      if (decodedToken.role === "Admin") {
         localStorage.setItem("token", response.token);
         setIsLogged(true);
+
         toast({
           title: "Đăng nhập thành công",
           description: "Chào mừng bạn đến với 3C Billiard",
         });
         router.replace("/dashboard");
+      } else {
+        toast({
+          title: "Đăng nhập thất bại",
+          description: "Sai tên tài khoản hoặc mật khẩu",
+        });
       }
     } catch (error) {
       console.error(error);
@@ -41,6 +48,8 @@ function SignInComponent() {
         title: "Đăng nhập thất bại",
         description: "Vui lòng kiểm tra lại thông tin đăng nhập",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -89,6 +98,9 @@ function SignInComponent() {
                 className="m-4 w-80 h-10 rounded-xl"
               >
                 Đăng nhập
+                {loading && (
+                  <Spinner size="small" show={true} className="text-white" />
+                )}
               </Button>
               {/* </Link> */}
             </div>
