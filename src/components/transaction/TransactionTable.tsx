@@ -73,7 +73,7 @@ function TransactionTable({
                       {(item.status === "ACTIVE" && "Đã Thanh toán") ||
                         (item.status === "INACTIVE" && "Đã huỷ") ||
                         (item.status === "DELETED" && "Đã huỷ") ||
-                        (item.status === "PENDING" && "Chờ xác nhận") ||
+                        (item.status === "WAITING" && "Chờ xác nhận") ||
                         (item.status === "FINISHED" && "Đã hoàn thành") ||
                         (item.status === "REFUNDED" && "Đã hoàn tiền") ||
                         (item.status === "REFUNDING" && "Đang hoàn tiền") ||
